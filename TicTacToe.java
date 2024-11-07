@@ -28,7 +28,7 @@ public class TicTacToe {
      * Konstruktor untuk menginisialisasi antarmuka permainan Tic-Tac-Toe,
      * menyiapkan frame, panel teks, dan papan permainan.
      */
-    TicTacToe() {
+    public TicTacToe() {
         frame.setVisible(true);
         frame.setSize(boardWidth, boardHeight);
         frame.setLocationRelativeTo(null);
@@ -89,7 +89,7 @@ public class TicTacToe {
      * Jika ada pemenang, menampilkan pemenang dan mengakhiri permainan.
      * Jika permainan berakhir seri, menampilkan hasil seri.
      */
-    void checkWinner() {
+    public void checkWinner() {
         // horizontal
         for (int r = 0; r < 3; r++) {
             if (board[r][0].getText() == "")
@@ -158,7 +158,7 @@ public class TicTacToe {
      *
      * @param tile tombol yang menampilkan simbol pemenang.
      */
-    void setWinner(JButton tile) {
+    public void setWinner(JButton tile) {
         tile.setForeground(Color.green);
         tile.setBackground(Color.gray);
         textLabel.setText(currentPlayer + " is the winner!");
@@ -170,7 +170,7 @@ public class TicTacToe {
      *
      * @param tile tombol yang menampilkan simbol di papan.
      */
-    void setTie(JButton tile) {
+    public void setTie(JButton tile) {
         tile.setForeground(Color.orange);
         tile.setBackground(Color.gray);
         textLabel.setText("Tie!");
