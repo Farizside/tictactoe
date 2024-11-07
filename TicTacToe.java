@@ -2,9 +2,14 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+/**
+ * Kelas yang mengatur logika dan antarmuka pengguna untuk permainan
+ * Tic-Tac-Toe.
+ * Mengatur tampilan papan, giliran pemain, dan kondisi kemenangan atau seri.
+ */
 public class TicTacToe {
     int boardWidth = 600;
-    int boardHeight = 650; //50px for the text panel on top
+    int boardHeight = 650; // 50px untuk panel teks di atas
 
     JFrame frame = new JFrame("Tic-Tac-Toe");
     JLabel textLabel = new JLabel();
@@ -19,6 +24,10 @@ public class TicTacToe {
     boolean gameOver = false;
     int turns = 0;
 
+    /**
+     * Konstruktor untuk menginisialisasi antarmuka permainan Tic-Tac-Toe,
+     * menyiapkan frame, panel teks, dan papan permainan.
+     */
     TicTacToe() {
         frame.setVisible(true);
         frame.setSize(boardWidth, boardHeight);
@@ -52,11 +61,11 @@ public class TicTacToe {
                 tile.setForeground(Color.white);
                 tile.setFont(new Font("Arial", Font.BOLD, 120));
                 tile.setFocusable(false);
-                // tile.setText(currentPlayer);
 
                 tile.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        if (gameOver) return;
+                        if (gameOver)
+                            return;
                         JButton tile = (JButton) e.getSource();
                         if (tile.getText() == "") {
                             tile.setText(currentPlayer);
@@ -73,14 +82,21 @@ public class TicTacToe {
             }
         }
     }
-    
+
+    /**
+     * Memeriksa apakah ada pemenang setelah setiap langkah.
+     * Mengecek baris, kolom, dan diagonal untuk menemukan tiga simbol yang sama.
+     * Jika ada pemenang, menampilkan pemenang dan mengakhiri permainan.
+     * Jika permainan berakhir seri, menampilkan hasil seri.
+     */
     void checkWinner() {
-        //horizontal
+        // horizontal
         for (int r = 0; r < 3; r++) {
-            if (board[r][0].getText() == "") continue;
+            if (board[r][0].getText() == "")
+                continue;
 
             if (board[r][0].getText() == board[r][1].getText() &&
-                board[r][1].getText() == board[r][2].getText()) {
+                    board[r][1].getText() == board[r][2].getText()) {
                 for (int i = 0; i < 3; i++) {
                     setWinner(board[r][i]);
                 }
@@ -89,12 +105,13 @@ public class TicTacToe {
             }
         }
 
-        //vertical
+        // vertical
         for (int c = 0; c < 3; c++) {
-            if (board[0][c].getText() == "") continue;
-            
+            if (board[0][c].getText() == "")
+                continue;
+
             if (board[0][c].getText() == board[1][c].getText() &&
-                board[1][c].getText() == board[2][c].getText()) {
+                    board[1][c].getText() == board[2][c].getText()) {
                 for (int i = 0; i < 3; i++) {
                     setWinner(board[i][c]);
                 }
@@ -103,10 +120,10 @@ public class TicTacToe {
             }
         }
 
-        //diagonally
+        // diagonally
         if (board[0][0].getText() == board[1][1].getText() &&
-            board[1][1].getText() == board[2][2].getText() &&
-            board[0][0].getText() != "") {
+                board[1][1].getText() == board[2][2].getText() &&
+                board[0][0].getText() != "") {
             for (int i = 0; i < 3; i++) {
                 setWinner(board[i][i]);
             }
@@ -114,10 +131,10 @@ public class TicTacToe {
             return;
         }
 
-        //anti-diagonally
+        // anti-diagonally
         if (board[0][2].getText() == board[1][1].getText() &&
-            board[1][1].getText() == board[2][0].getText() &&
-            board[0][2].getText() != "") {
+                board[1][1].getText() == board[2][0].getText() &&
+                board[0][2].getText() != "") {
             setWinner(board[0][2]);
             setWinner(board[1][1]);
             setWinner(board[2][0]);
@@ -135,12 +152,24 @@ public class TicTacToe {
         }
     }
 
+    /**
+     * Menandai tombol dengan warna hijau dan teks yang menunjukkan pemenang
+     * serta menampilkan pesan pemenang di label teks.
+     *
+     * @param tile tombol yang menampilkan simbol pemenang.
+     */
     void setWinner(JButton tile) {
         tile.setForeground(Color.green);
         tile.setBackground(Color.gray);
         textLabel.setText(currentPlayer + " is the winner!");
     }
 
+    /**
+     * Menandai tombol dengan warna oranye dan menampilkan pesan "Tie"
+     * di label teks ketika permainan berakhir seri.
+     *
+     * @param tile tombol yang menampilkan simbol di papan.
+     */
     void setTie(JButton tile) {
         tile.setForeground(Color.orange);
         tile.setBackground(Color.gray);
